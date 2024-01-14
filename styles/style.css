@@ -1,3 +1,7 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
 .container{
     position: fixed;
     top: 0;
@@ -35,7 +39,6 @@
     font-size: 70px;
     margin-top: 0px;
     margin-bottom: 8px;
-    font-family: 'Open Sans', sans-serif;
     font-weight: 800;
     color: rgb(36, 53, 91);
 }
@@ -49,6 +52,27 @@
 .coming-soon-text{
     margin: 0px;
     font-size: 50px;
-    font-family: 'Open Sans', sans-serif;
     font-weight: 700;
+}
+
+.color-theme{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    border: none;
+    background-color: rgb(255, 128, 147);
+    color: white;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.color-theme:hover{
+    transform: translateX(-10px);
+    opacity: 0.7;
+}
+
+.color-theme:active{
+    opacity: 0.5;
 }
