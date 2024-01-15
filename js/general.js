@@ -1,10 +1,3 @@
-const colorThemeButtonElement = document.querySelector('.js-color-theme-button');
-const overlayElement = document.querySelector('.js-overlay');
-const boardContainerElement = document.querySelector('.js-board-container')
-const boardElement = document.querySelector('.js-board');
-
-let currentPageTheme = "white";
-
 function changeToBlackTheme(){
     overlayElement.style.backgroundColor = "#736c6c";
     boardElement.style.backgroundColor = "#8c8a89";
@@ -17,7 +10,7 @@ function changeToWhiteTheme(){
     boardContainerElement.style.boxShadow = "0px 5px 30px rgba(0, 0, 0, 3)";
 }
 
-colorThemeButtonElement.addEventListener('click', function(){
+function changeColorTheme(){
     if(currentPageTheme === "white"){
         changeToBlackTheme();
         currentPageTheme = "black";
@@ -26,4 +19,10 @@ colorThemeButtonElement.addEventListener('click', function(){
         changeToWhiteTheme();
         currentPageTheme = "white";
     }
+}
+
+let currentPageTheme = "white";
+
+colorThemeButtonElement.addEventListener('click', function(){
+    changeColorTheme();
 });

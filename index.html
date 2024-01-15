@@ -3,7 +3,8 @@
 <html>
     <head>
         <title>RedStone game</title>
-        <link href="styles/style.css" rel="stylesheet">
+        <link href="styles/general.css" rel="stylesheet">
+        <link href="styles/board.css" rel="stylesheet">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,17 +15,23 @@
     <body>
         <div class="overlay js-overlay">
             <button class="color-theme-button js-color-theme-button">Color Theme</button>
+            
             <div class="board-container js-board-container">
+
                 <div class="board js-board">
 
                     <img class="player js-player" src="images/miner-icon.png">
                     <div class="score js-score">0</div>
+                    <div class="timer js-timer">60</div>
 
                 </div>
+
                 <button class="start-button js-start-button">start</button>
             </div>
         </div>
 
-        <script src="js/javascript.js"></script>
+        <script src="js/variables.js"></script>
+        <script src="js/general.js"></script>
+        <script src="js/board.js"></script>
     </body>
 </html>
