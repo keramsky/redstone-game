@@ -4,3 +4,5 @@ const boardContainerElement = document.querySelector('.js-board-container')
 const boardElement = document.querySelector('.js-board');
 const startButtonElement = document.querySelector('.js-start-button');
 const timerElement = document.querySelector('.js-timer');
+const rsgContainerElement = document.querySelector('.js-rsg-container');
+const playerElement = document.querySelector('.js-player');
