@@ -1,6 +1,10 @@
-playerX = 40;
-playerY = 170;
-
+let playerX = 40;
+let playerY = 170;
+let rsgX;
+let rsgY;
+let playerSize = 100;
+let rsgSizeX = 30;
+let rsgSizeY = 24;
 
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
@@ -22,55 +26,97 @@ function setTimer(){
 }
 
 function spawnRSG(){
-    let randX = Math.floor(Math.random() * 900);
-    let randY = Math.floor(Math.random() * 450);
+    rsgX = Math.floor(Math.random() * 860);
+    rsgY = Math.floor(Math.random() * 410);
 
-    if(randX < 20){
-        randX = 40;
-    }
-    else if(randX > 880){
-        randX = 860;
+    if(rsgX < 30){
+        rsgX = 30;
     }
 
-    if(randY < 20){
-        randY = 40;
-    }
-    else if(randY > 880){
-        randY = 860;
+    if(rsgY < 30){
+        rsgY = 30;
     }
 
     rsgContainerElement.innerHTML = `<img class="rsg js-rsg" src="images/rsg.png">`
 
-    const rsgElement = document.querySelector('.js-rsg');
+    rsgElement = document.querySelector('.js-rsg');
 
-    rsgElement.style.left = `${randX}px`;
-    rsgElement.style.top = `${randY}px`;
+    rsgElement.style.left = `${rsgX}px`;
+    rsgElement.style.top = `${rsgY}px`;
 }
 
-function movePlayer(){
-
+function movePlayer(score){
     document.body.addEventListener("keydown", (event) => {
-        if(event.key === 'ArrowUp'){
+        if(event.key === 'ArrowUp' && playerY > 0){
             playerElement.style.top = `${playerY - 10}px`;
             playerY -= 10;
+            checkContact(score);
         }
-        else if(event.key === 'ArrowDown'){
+        else if(event.key === 'ArrowDown' && playerY < 350){
             playerElement.style.top = `${playerY + 10}px`;
             playerY += 10;
+            checkContact(score);
         }
-        else if(event.key === 'ArrowRight'){
+        else if(event.key === 'ArrowRight' && playerX < 800){
             playerElement.style.left = `${playerX + 10}px`;
             playerX += 10;
+            checkContact(score);
         }
-        else if(event.key === 'ArrowLeft'){
+        else if(event.key === 'ArrowLeft' && playerX > 0){
             playerElement.style.left = `${playerX - 10}px`;
-            playerX -= 10;
+            playerX -= 10;  
+            checkContact(score);
         }
     });
 }
 
+function checkContact(score){
+    if(playerX + playerSize >= rsgX && playerX + playerSize <= rsgX + rsgSizeX){
+        if(playerY <= rsgY + rsgSizeY && playerY + playerSize >= rsgY){
+            rsgElement.remove();
+            score++;
+            updateScore(score);
+            rsgX = undefined;
+            rsgY = undefined;
+        }
+    }
+    if(playerX <= rsgX + rsgSizeX && playerX >= rsgX){
+        if(playerY <= rsgY + rsgSizeY && playerY + playerSize >= rsgY){
+            rsgElement.remove();
+            score++;
+            updateScore(score);
+            rsgX = undefined;
+            rsgY = undefined;
+        }
+    }
+    if(playerY + playerSize >= rsgY && playerY + playerSize <= rsgY + rsgSizeY){
+        if(playerX <= rsgX + rsgSizeX && playerX + playerSize >= rsgX){
+            rsgElement.remove();
+            score++;
+            updateScore(score);
+            rsgX = undefined;
+            rsgY = undefined;
+        }
+    }
+    if(playerY <= rsgY + rsgSizeY && playerY >= rsgY){
+        if(playerX <= rsgX + rsgSizeX && playerX + playerSize >= rsgX){
+            rsgElement.remove();
+            score++;
+            updateScore(score);
+            rsgX = undefined;
+            rsgY = undefined;
+        }
+    }
+}
+
+function updateScore(score){
+    scoreElement.innerHTML = `${score}`;
+}
+
 function startGame(){
+    let score = 0;
+
     setTimer();
     spawnRSG();
-    movePlayer();
+    movePlayer(score);
 }

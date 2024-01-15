@@ -6,3 +6,5 @@ const startButtonElement = document.querySelector('.js-start-button');
 const timerElement = document.querySelector('.js-timer');
 const rsgContainerElement = document.querySelector('.js-rsg-container');
 const playerElement = document.querySelector('.js-player');
+const scoreElement = document.querySelector('.js-score');
+let rsgElement;

@@ -14,8 +14,17 @@
     left: 40px;
 }
 
+.score-container{
+    position: flex;
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 15px;
+}
+
 .score{
-    position: absolute;
     bottom: 105px;
     right: 30px;
     font-size: 35px;
@@ -26,7 +35,6 @@
 }
 
 .timer{
-    position: absolute;
     bottom: 25px;
     right: 30px;
     font-size: 35px;
@@ -38,6 +46,8 @@
 
 .rsg{
     position: absolute;
-    border-radius: 50%;
-    padding: 15px;
+}
+
+.arrows{
+    margin-left: 50px;
 }
