@@ -3,7 +3,6 @@ let playerX =  400;
 let playerSize = 100;
 let rsgSizeX = 30;
 let rsgSizeY = 24;
-let rsgHTML = ``;
 let rsgID = 1;
 
 
@@ -44,11 +43,12 @@ function spawnRSG(){
 
 
 
-    rsgHTML += `<p class="rsg js-rsg id${rsgID}">${rsgID}</p>\n`;
+    let rsgElement = document.createElement("img");
 
-    rsgContainerElement.innerHTML = `${rsgHTML}`;
+    rsgElement.classList.add(`id${rsgID}`);
+    rsgElement.src = "images/rsg.png";
 
-    let rsgElement = document.querySelector(`.id${rsgID}`);
+    rsgContainerElement.appendChild(rsgElement);
 
     rsgElement.style.position = `absolute`;
     rsgElement.style.left = `${rsgX}px`;
@@ -57,7 +57,6 @@ function spawnRSG(){
     rsg.push({id: `id${rsgID}`, height: rsgY, width: rsgX});
 
     rsgID++;
-    console.log(rsgID);
 }
 
 function movePlayer(score){
