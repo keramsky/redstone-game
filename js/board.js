@@ -1,16 +1,20 @@
 let playerY = 175;
 let playerX =  400;
-let rsgX;
-let rsgY;
 let playerSize = 100;
 let rsgSizeX = 30;
 let rsgSizeY = 24;
+let rsgHTML = ``;
+let rsgID = 0;
 
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
     startButtonElement.remove();
     startGame();
 });
+
+let rsg = [
+
+];
 
 function setTimer(){
     let sec = 60;
@@ -26,8 +30,8 @@ function setTimer(){
 }
 
 function spawnRSG(){
-    rsgX = Math.floor(Math.random() * 860);
-    rsgY = Math.floor(Math.random() * 410);
+    let rsgX = Math.floor(Math.random() * 860);
+    let rsgY = Math.floor(Math.random() * 410);
 
     if(rsgX < 30){
         rsgX = 30;
@@ -37,12 +41,23 @@ function spawnRSG(){
         rsgY = 30;
     }
 
-    rsgContainerElement.innerHTML = `<img class="rsg js-rsg" src="images/rsg.png">`
+    
+    
+    rsgHTML += `<img class="rsg js-rsg id${rsgID}}" src="images/rsg.png">\n`;
 
-    rsgElement = document.querySelector('.js-rsg');
+    rsgContainerElement.innerHTML = `${rsgHTML}`;
+
+    rsgElement = document.querySelector(`.id${rsgID}`);
 
     rsgElement.style.left = `${rsgX}px`;
     rsgElement.style.top = `${rsgY}px`;
+
+    rsg.push({height: rsgY, width: rsgX});
+
+    for(let i = 0; i < rsg.length; i++){
+        console.log(rsg[i].height);
+        console.log(rsg[i].width);
+    }
 }
 
 function movePlayer(score){
@@ -71,40 +86,46 @@ function movePlayer(score){
 }
 
 function checkContact(score){
-    if(playerX + playerSize >= rsgX && playerX + playerSize <= rsgX + rsgSizeX){
-        if(playerY <= rsgY + rsgSizeY && playerY + playerSize >= rsgY){
-            rsgElement.remove();
-            score++;
-            updateScore(score);
-            rsgX = undefined;
-            rsgY = undefined;
-        }
+    if(rsg.length == 0){
+        return;
     }
-    if(playerX <= rsgX + rsgSizeX && playerX >= rsgX){
-        if(playerY <= rsgY + rsgSizeY && playerY + playerSize >= rsgY){
-            rsgElement.remove();
-            score++;
-            updateScore(score);
-            rsgX = undefined;
-            rsgY = undefined;
+
+    for(let i = 0; i < rsg.length; i++){
+        if(playerX + playerSize >= rsg[i].width && playerX + playerSize <= rsg[i].width + rsgSizeX){
+            if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >= rsg[i].height){
+                rsgElement.remove();
+                score++;
+                updateScore(score);
+                rsg[i].width = undefined;
+                rsg[i].height = undefined;
+            }
         }
-    }
-    if(playerY + playerSize >= rsgY && playerY + playerSize <= rsgY + rsgSizeY){
-        if(playerX <= rsgX + rsgSizeX && playerX + playerSize >= rsgX){
-            rsgElement.remove();
-            score++;
-            updateScore(score);
-            rsgX = undefined;
-            rsgY = undefined;
+        if(playerX <= rsg[i].width + rsgSizeX && playerX >= rsg[i].width){
+            if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >=rsg[i].height){
+                rsgElement.remove();
+                score++;
+                updateScore(score);
+                rsg[i].width = undefined;
+                rsg[i].height = undefined;
+            }
         }
-    }
-    if(playerY <= rsgY + rsgSizeY && playerY >= rsgY){
-        if(playerX <= rsgX + rsgSizeX && playerX + playerSize >= rsgX){
-            rsgElement.remove();
-            score++;
-            updateScore(score);
-            rsgX = undefined;
-            rsgY = undefined;
+        if(playerY + playerSize >= rsg[i].height && playerY + playerSize <= rsg[i].height + rsgSizeY){
+            if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
+                rsgElement.remove();
+                score++;
+                updateScore(score);
+                rsg[i].width = undefined;
+                rsg[i].height = undefined;
+            }
+        }
+        if(playerY <= rsg[i].height + rsgSizeY && playerY >= rsg[i].height){
+            if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
+                rsgElement.remove();
+                score++;
+                updateScore(score);
+                rsg[i].width = undefined;
+                rsg[i].height = undefined;
+            }
         }
     }
 }
@@ -117,6 +138,8 @@ function startGame(){
     let score = 0;
 
     setTimer();
-    spawnRSG();
+    setInterval(() => {
+        spawnRSG();
+    }, 2000);
     movePlayer(score);
 }
