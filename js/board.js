@@ -4,7 +4,8 @@ let playerSize = 100;
 let rsgSizeX = 30;
 let rsgSizeY = 24;
 let rsgHTML = ``;
-let rsgID = 0;
+let rsgID = 1;
+
 
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
@@ -41,23 +42,22 @@ function spawnRSG(){
         rsgY = 30;
     }
 
-    
-    
-    rsgHTML += `<img class="rsg js-rsg id${rsgID}}" src="images/rsg.png">\n`;
+
+
+    rsgHTML += `<p class="rsg js-rsg id${rsgID}">${rsgID}</p>\n`;
 
     rsgContainerElement.innerHTML = `${rsgHTML}`;
 
-    rsgElement = document.querySelector(`.id${rsgID}`);
+    let rsgElement = document.querySelector(`.id${rsgID}`);
 
+    rsgElement.style.position = `absolute`;
     rsgElement.style.left = `${rsgX}px`;
     rsgElement.style.top = `${rsgY}px`;
 
-    rsg.push({height: rsgY, width: rsgX});
+    rsg.push({id: `id${rsgID}`, height: rsgY, width: rsgX});
 
-    for(let i = 0; i < rsg.length; i++){
-        console.log(rsg[i].height);
-        console.log(rsg[i].width);
-    }
+    rsgID++;
+    console.log(rsgID);
 }
 
 function movePlayer(score){
@@ -93,7 +93,7 @@ function checkContact(score){
     for(let i = 0; i < rsg.length; i++){
         if(playerX + playerSize >= rsg[i].width && playerX + playerSize <= rsg[i].width + rsgSizeX){
             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >= rsg[i].height){
-                rsgElement.remove();
+                //rsgElement.remove();
                 score++;
                 updateScore(score);
                 rsg[i].width = undefined;
@@ -102,7 +102,7 @@ function checkContact(score){
         }
         if(playerX <= rsg[i].width + rsgSizeX && playerX >= rsg[i].width){
             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >=rsg[i].height){
-                rsgElement.remove();
+                //rsgElement.remove();
                 score++;
                 updateScore(score);
                 rsg[i].width = undefined;
@@ -111,7 +111,7 @@ function checkContact(score){
         }
         if(playerY + playerSize >= rsg[i].height && playerY + playerSize <= rsg[i].height + rsgSizeY){
             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
-                rsgElement.remove();
+                //rsgElement.remove();
                 score++;
                 updateScore(score);
                 rsg[i].width = undefined;
@@ -120,7 +120,7 @@ function checkContact(score){
         }
         if(playerY <= rsg[i].height + rsgSizeY && playerY >= rsg[i].height){
             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
-                rsgElement.remove();
+                //rsgElement.remove();
                 score++;
                 updateScore(score);
                 rsg[i].width = undefined;
