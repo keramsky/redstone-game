@@ -1,5 +1,5 @@
-let playerX = 175;
-let playerY = 400;
+let playerY = 175;
+let playerX =  400;
 let rsgX;
 let rsgY;
 let playerSize = 100;
