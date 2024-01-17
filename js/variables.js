@@ -8,3 +8,4 @@ const rsgContainerElement = document.querySelector('.js-rsg-container');
 const playerElement = document.querySelector('.js-player');
 const scoreElement = document.querySelector('.js-score');
 const startButtonContainerElement = document.querySelector('.js-start-button-container');
+const restartButtonElement = document.querySelector('.js-restart-button')

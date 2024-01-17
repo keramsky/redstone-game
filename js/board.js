@@ -6,6 +6,7 @@ let rsgSizeY = 24;
 let rsgID = 1;
 let score = 0;
 let end = false;
+let stopSpawnRSG;
 
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
@@ -13,12 +14,14 @@ startButtonElement.addEventListener('click', function(){
     startGame();
 });
 
+movePlayer();
+
 let rsg = [
 
 ];
 
 function setTimer(){
-    let sec = 60;
+    let sec = 10;
     timerElement.innerHTML = `${sec}`;
 
     timer = setInterval(() => {
@@ -66,7 +69,7 @@ function movePlayer(){
         if(!end){
             if(event.key === 'ArrowUp' && playerY > 0){
                 playerElement.style.top = `${playerY - 10}px`;
-                playerY -= 10;  
+                playerY -= 10;
                 checkContact();
             }
             else if(event.key === 'ArrowDown' && playerY < 350){
@@ -82,6 +85,7 @@ function movePlayer(){
             else if(event.key === 'ArrowLeft' && playerX > 0){
                 playerElement.style.left = `${playerX - 10}px`;
                 playerX -= 10;  
+
                 checkContact();
             }  
         }
@@ -150,10 +154,41 @@ function endGame(){
 
     let restartButton = document.createElement("button");
     restartButton.classList.add("start-button");
+    restartButton.classList.add("js-restart-button");
     restartButton.innerHTML = "restart";
+
+    restartButton.style.left = "340px";
+
+    restartButton.addEventListener('click', function(){
+        restartButton.remove();
+        scoreText.remove();
+
+        resetStats();
+        startGame();
+    });
 
     startButtonContainerElement.appendChild(scoreText);
     startButtonContainerElement.appendChild(restartButton);
+
+}
+
+function resetStats(){
+    boardElement.style.filter = "blur(0px)";
+    scoreElement.innerHTML = 0;
+    score = 0;
+    clearInterval(stopSpawnRSG);
+
+    while(rsg.length > 0){
+        rsg.pop();
+    }
+
+    rsgContainerElement.innerHTML = "";
+
+    playerY = 175;
+    playerX = 400;
+
+    playerElement.style.left = "400px";
+    playerElement.style.top = "175px";
 
 }
 
@@ -162,10 +197,9 @@ function startGame(){
     end = false;
 
     setTimer();
-    setInterval(() => {
+    stopSpawnRSG = setInterval(() => {
         if(!end){
             spawnRSG();
         }
     }, 2000);
-    movePlayer();
 }

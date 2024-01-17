@@ -47,14 +47,3 @@
 .arrows{
     margin-left: 50px;
 }
-
-.score-text{
-    font-size: 30px;
-}
-
-.start-button-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}

@@ -83,3 +83,11 @@ body{
     right: 30px;
     font-size: 20px;
 }
+
+.score-text{
+    font-size: 40px;
+    position: absolute;
+    top: 60px;
+    left: 320px;
+    color: rgb(36, 53, 91);
+}
