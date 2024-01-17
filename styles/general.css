@@ -91,3 +91,21 @@ body{
     left: 320px;
     color: rgb(36, 53, 91);
 }
+
+.redstone-game-text{
+    font-weight: 800;
+    color: rgb(36, 53, 91);
+    font-size: 70px;
+    margin-left: 15px;
+    padding-bottom: 10px;
+}
+
+
+.redstone-text-container{
+    position: fixed;
+    top: -40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
