@@ -21,7 +21,7 @@ let rsg = [
 ];
 
 function setTimer(){
-    let sec = 10;
+    let sec = 60;
     timerElement.innerHTML = `${sec}`;
 
     timer = setInterval(() => {
@@ -35,6 +35,7 @@ function setTimer(){
 }
 
 function spawnRSG(){
+
     let rsgX = Math.floor(Math.random() * 860);
     let rsgY = Math.floor(Math.random() * 410);
 
