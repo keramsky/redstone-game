@@ -93,19 +93,24 @@ body{
 }
 
 .redstone-game-text{
-    font-weight: 800;
+
     color: rgb(36, 53, 91);
     font-size: 70px;
-    margin-left: 15px;
-    padding-bottom: 10px;
+    margin: 0;
+    padding-bottom: 5px;
+    margin-left: 20px;
+    font-weight: 800;
 }
 
+.redstone-game-img{
+}
 
 .redstone-text-container{
     position: fixed;
-    top: -40px;
+    top: 0px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    margin-top: 15px;
 }
