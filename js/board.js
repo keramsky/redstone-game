@@ -1,12 +1,19 @@
 let playerY = 175;
 let playerX =  400;
 let playerSize = 100;
+let playerSpeed = 10;
+let playerSpeedDiagonal = 5;
 let rsgSizeX = 30;
 let rsgSizeY = 24;
 let rsgID = 1;
 let score = 0;
 let end = false;
 let stopSpawnRSG;
+let isUpArrowPressed = false;
+let isRightArrowPressed = false;
+let isLeftArrowPressed = false;
+let isDownArrowPressed = false;
+
 
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
@@ -65,32 +72,100 @@ function spawnRSG(){
     rsgID++;
 }
 
-function movePlayer(){
-    document.body.addEventListener("keydown", (event) => {
-        if(!end){
-            if(event.key === 'ArrowUp' && playerY > 0){
-                playerElement.style.top = `${playerY - 10}px`;
-                playerY -= 10;
-                checkContact();
-            }
-            else if(event.key === 'ArrowDown' && playerY < 350){
-                playerElement.style.top = `${playerY + 10}px`;
-                playerY += 10;  
-                checkContact();
-            }
-            else if(event.key === 'ArrowRight' && playerX < 800){
-                playerElement.style.left = `${playerX + 10}px`;
-                playerX += 10;  
-                checkContact();
-            }
-            else if(event.key === 'ArrowLeft' && playerX > 0){
-                playerElement.style.left = `${playerX - 10}px`;
-                playerX -= 10;  
-
-                checkContact();
-            }  
+function checkBla() {
+    if(!end){
+        if (isUpArrowPressed && isRightArrowPressed && (playerY > 0 && playerX < 800)) {
+            playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
+            playerX += playerSpeedDiagonal;  
+    
+            playerElement.style.top = `${playerY - playerSpeedDiagonal}px`;
+            playerY -= playerSpeedDiagonal;  
+            checkContact();
         }
-    });
+    
+        else if (isUpArrowPressed && isLeftArrowPressed && (playerY > 0 && playerX > 0)) {
+            playerElement.style.left = `${playerX - playerSpeedDiagonal}px`;
+            playerX -= playerSpeedDiagonal;  
+    
+            playerElement.style.top = `${playerY - playerSpeedDiagonal}px`;
+            playerY -= playerSpeedDiagonal;  
+            checkContact();
+        }
+    
+        else if (isDownArrowPressed && isRightArrowPressed && (playerY < 350 && playerX < 800)) {
+            playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
+            playerX += playerSpeedDiagonal;  
+    
+            playerElement.style.top = `${playerY + playerSpeedDiagonal}px`;
+            playerY += playerSpeedDiagonal;  
+            checkContact();
+        }
+    
+        else if (isDownArrowPressed && isLeftArrowPressed && (playerY < 350 && playerX > 0)) {
+            playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
+            playerX -= playerSpeedDiagonal;  
+    
+            playerElement.style.top = `${playerY + playerSpeedDiagonal}px`;
+            playerY += playerSpeedDiagonal;  
+            checkContact();
+        }
+    
+    
+        else if (isUpArrowPressed && playerY > 0) {
+            playerElement.style.top = `${playerY - playerSpeed}px`;
+            playerY -= playerSpeed;
+            checkContact();
+        }
+        else if (isDownArrowPressed && playerY < 350) {
+            playerElement.style.top = `${playerY + playerSpeed}px`;
+            playerY += playerSpeed;  
+            checkContact();
+        }
+        else if (isLeftArrowPressed && playerX > 0) {
+            playerElement.style.left = `${playerX - playerSpeed}px`;
+            playerX -= playerSpeed;  
+            checkContact();
+        }
+        else if (isRightArrowPressed && playerX < 800) {
+            playerElement.style.left = `${playerX + playerSpeed}px`;
+            playerX += playerSpeed;  
+            checkContact();
+        }
+    }
+
+
+}
+
+function movePlayer(){
+
+    if(!end){
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowUp') {
+                isUpArrowPressed = true;
+            } else if (event.key === 'ArrowRight') {
+                isRightArrowPressed = true;
+            } else if (event.key === 'ArrowLeft') {
+                isLeftArrowPressed = true;
+            } else if (event.key === 'ArrowDown') {
+                isDownArrowPressed = true;
+            }
+            checkBla();
+        });
+        
+        document.addEventListener('keyup', (event) => {
+            if (event.key === 'ArrowUp') {
+                isUpArrowPressed = false;
+            } else if (event.key === 'ArrowRight') {
+                isRightArrowPressed = false;
+            } else if (event.key === 'ArrowLeft') {
+                isLeftArrowPressed = false;
+            } else if (event.key === 'ArrowDown') {
+                isDownArrowPressed = false;
+            }
+            checkBla();
+        });
+    }
+
 }
 
 function checkContact(){
