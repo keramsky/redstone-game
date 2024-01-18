@@ -13,6 +13,7 @@ let isUpArrowPressed = false;
 let isRightArrowPressed = false;
 let isLeftArrowPressed = false;
 let isDownArrowPressed = false;
+let scoreWithBooster = 10;
 
 
 startButtonElement.addEventListener('click', function(){
@@ -41,7 +42,7 @@ function setTimer(){
     }, 1000);
 }
 
-function spawnRSG(){
+function spawnRSG(boost){
 
     let rsgX = Math.floor(Math.random() * 860);
     let rsgY = Math.floor(Math.random() * 410);
@@ -59,7 +60,11 @@ function spawnRSG(){
     let rsgElement = document.createElement("img");
 
     rsgElement.classList.add(`id${rsgID}`);
-    rsgElement.src = "images/rsg.png";
+    if(boost === 1){
+        rsgElement.src = "images/rsg2.png";
+    } else {
+        rsgElement.src = "images/rsg.png";
+    }
 
     rsgContainerElement.appendChild(rsgElement);
 
@@ -67,7 +72,12 @@ function spawnRSG(){
     rsgElement.style.left = `${rsgX}px`;
     rsgElement.style.top = `${rsgY}px`;
 
-    rsg.push({id: rsgID, height: rsgY, width: rsgX});
+    if(boost === 1){
+        rsg.push({boost: 1, id: rsgID, height: rsgY, width: rsgX});
+    } else {
+        rsg.push({boost: 0, id: rsgID, height: rsgY, width: rsgX});
+    }
+
 
     rsgID++;
 }
@@ -179,7 +189,7 @@ function checkContact(){
         if(playerX + playerSize >= rsg[i].width && playerX + playerSize <= rsg[i].width + rsgSizeX){
             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >= rsg[i].height){
                 currentRSG.remove();
-                updateScore();
+                updateScore(rsg[i].boost);
                 console.log();
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
@@ -188,7 +198,7 @@ function checkContact(){
         if(playerX <= rsg[i].width + rsgSizeX && playerX >= rsg[i].width){
             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >=rsg[i].height){
                 currentRSG.remove();
-                updateScore();
+                updateScore(rsg[i].boost);
                 console.log();
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
@@ -197,7 +207,7 @@ function checkContact(){
         if(playerY + playerSize >= rsg[i].height && playerY + playerSize <= rsg[i].height + rsgSizeY){
             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
                 currentRSG.remove();
-                updateScore();
+                updateScore(rsg[i].boost);
                 console.log();
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
@@ -206,7 +216,7 @@ function checkContact(){
         if(playerY <= rsg[i].height + rsgSizeY && playerY >= rsg[i].height){
             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
                 currentRSG.remove();
-                updateScore();
+                updateScore(rsg[i].boost);
                 console.log();
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
@@ -215,8 +225,13 @@ function checkContact(){
     }
 }
 
-function updateScore(){
-    score++;
+function updateScore(boost){
+    if(boost === 1){
+        score += scoreWithBooster;
+    } else {
+        score++;
+    }
+
     scoreElement.innerHTML = `${score}`;
 }
 
@@ -273,9 +288,29 @@ function startGame(){
     end = false;
 
     setTimer();
+    
+    let i = 1;
+    let randNum = Math.floor(Math.random() * 20);
+    setInterval(() => {
+        console.log(i);
+        console.log(randNum);
+        if (i === randNum){
+            if(!end){
+                spawnRSG(1);
+            }
+        }
+        if(i === 20 || i === 40){
+            i = 0;
+            randNum = Math.floor(Math.random() * 20);
+        }
+
+        i++;
+        
+    }, 1000);
+
     stopSpawnRSG = setInterval(() => {
         if(!end){
-            spawnRSG();
+            spawnRSG(0);
         }
     }, 2000);
 }
