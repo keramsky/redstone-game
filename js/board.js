@@ -68,6 +68,24 @@ function spawnRSG(boost){
 
     rsgContainerElement.appendChild(rsgElement);
 
+    if(boost === 1){
+        let boostRSGElementID = rsgID;
+
+        setTimeout(() => {
+            let boostRSGElement = document.querySelector(`.id${boostRSGElementID}`);
+            boostRSGElement.remove();
+            for(let i = 0; i < rsg.length; i++){
+                if (rsg[i].id === boostRSGElementID){
+                    rsg[i].boost = undefined;
+                    rsg[i].id = undefined;
+                    rsg[i].height = undefined;
+                    rsg[i].width = undefined;
+                    break;
+                }
+            }
+        }, 7000);
+    }
+
     rsgElement.style.position = `absolute`;
     rsgElement.style.left = `${rsgX}px`;
     rsgElement.style.top = `${rsgY}px`;
