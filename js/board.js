@@ -14,7 +14,8 @@ let isRightArrowPressed = false;
 let isLeftArrowPressed = false;
 let isDownArrowPressed = false;
 let scoreWithBooster = 10;
-
+let rsgSpawnSpeed = 3000;
+let changeSpawnRSGSpeed = 150;
 
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
@@ -22,7 +23,7 @@ startButtonElement.addEventListener('click', function(){
     startGame();
 });
 
-movePlayer();
+checkIfKeyPressed();
 
 let rsg = [
 
@@ -100,7 +101,7 @@ function spawnRSG(boost){
     rsgID++;
 }
 
-function checkBla() {
+function movePlayer() {
     if(!end){
         if (isUpArrowPressed && isRightArrowPressed && (playerY > 0 && playerX < 800)) {
             playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
@@ -164,7 +165,7 @@ function checkBla() {
 
 }
 
-function movePlayer(){
+function checkIfKeyPressed(){
 
     if(!end){
         document.addEventListener('keydown', (event) => {
@@ -177,7 +178,7 @@ function movePlayer(){
             } else if (event.key === 'ArrowDown') {
                 isDownArrowPressed = true;
             }
-            checkBla();
+            movePlayer();
         });
         
         document.addEventListener('keyup', (event) => {
@@ -190,7 +191,7 @@ function movePlayer(){
             } else if (event.key === 'ArrowDown') {
                 isDownArrowPressed = false;
             }
-            checkBla();
+            movePlayer();
         });
     }
 
@@ -208,7 +209,6 @@ function checkContact(){
             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >= rsg[i].height){
                 currentRSG.remove();
                 updateScore(rsg[i].boost);
-                console.log();
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
             }
@@ -217,7 +217,6 @@ function checkContact(){
             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >=rsg[i].height){
                 currentRSG.remove();
                 updateScore(rsg[i].boost);
-                console.log();
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
             }
@@ -226,7 +225,6 @@ function checkContact(){
             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
                 currentRSG.remove();
                 updateScore(rsg[i].boost);
-                console.log();
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
             }
@@ -235,7 +233,6 @@ function checkContact(){
             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
                 currentRSG.remove();
                 updateScore(rsg[i].boost);
-                console.log();
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
             }
@@ -301,6 +298,23 @@ function resetStats(){
 
 }
 
+function spawnRSGSpeed(speed){
+    speed -= changeSpawnRSGSpeed;
+
+    if(speed < 500){
+        changeSpawnRSGSpeed = 0;
+        speed = 500;
+    }
+
+    setTimeout(() => {
+        if(!end){
+            spawnRSG(0);
+            console.log(speed);
+        }
+        spawnRSGSpeed(speed)
+    }, speed);
+}
+
 function startGame(){
     score = 0;
     end = false;
@@ -310,8 +324,6 @@ function startGame(){
     let i = 1;
     let randNum = Math.floor(Math.random() * 20);
     setInterval(() => {
-        console.log(i);
-        console.log(randNum);
         if (i === randNum){
             if(!end){
                 spawnRSG(1);
@@ -326,9 +338,9 @@ function startGame(){
         
     }, 1000);
 
-    stopSpawnRSG = setInterval(() => {
-        if(!end){
-            spawnRSG(0);
-        }
-    }, 2000);
+    if(!end){
+        spawnRSG(0);
+    }
+
+    spawnRSGSpeed(rsgSpawnSpeed - changeSpawnRSGSpeed);
 }
