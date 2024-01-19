@@ -1,6 +1,6 @@
 let playerY = 175;
 let playerX =  400;
-let playerSize = 100;
+let playerSize = 50;
 let playerSpeed = 10;
 let playerSpeedDiagonal = 5;
 let rsgSizeX = 30;
@@ -9,6 +9,7 @@ let rsgID = 1;
 let score = 0;
 let end = false;
 let stopSpawnRSG;
+let stopSpawnBOOST;
 let isUpArrowPressed = false;
 let isRightArrowPressed = false;
 let isLeftArrowPressed = false;
@@ -30,7 +31,7 @@ let rsg = [
 ];
 
 function setTimer(){
-    let sec = 2;
+    let sec = 60;
     timerElement.innerHTML = `${sec}`;
 
     timer = setInterval(() => {
@@ -103,7 +104,7 @@ function spawnRSG(boost){
 
 function movePlayer() {
     if(!end){
-        if (isUpArrowPressed && isRightArrowPressed && (playerY > 0 && playerX < 800)) {
+        if (isUpArrowPressed && isRightArrowPressed && (playerY > 0 && playerX < 900 - playerSize)) {
             playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
             playerX += playerSpeedDiagonal;  
     
@@ -121,7 +122,7 @@ function movePlayer() {
             checkContact();
         }
     
-        else if (isDownArrowPressed && isRightArrowPressed && (playerY < 350 && playerX < 800)) {
+        else if (isDownArrowPressed && isRightArrowPressed && (playerY < 450 - playerSize && playerX < 900 - playerSize)) {
             playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
             playerX += playerSpeedDiagonal;  
     
@@ -130,7 +131,7 @@ function movePlayer() {
             checkContact();
         }
     
-        else if (isDownArrowPressed && isLeftArrowPressed && (playerY < 350 && playerX > 0)) {
+        else if (isDownArrowPressed && isLeftArrowPressed && (playerY < 450 - playerSize && playerX > 0)) {
             playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
             playerX -= playerSpeedDiagonal;  
     
@@ -145,7 +146,7 @@ function movePlayer() {
             playerY -= playerSpeed;
             checkContact();
         }
-        else if (isDownArrowPressed && playerY < 350) {
+        else if (isDownArrowPressed && playerY < 450 - playerSize) {
             playerElement.style.top = `${playerY + playerSpeed}px`;
             playerY += playerSpeed;  
             checkContact();
@@ -155,7 +156,7 @@ function movePlayer() {
             playerX -= playerSpeed;  
             checkContact();
         }
-        else if (isRightArrowPressed && playerX < 800) {
+        else if (isRightArrowPressed && playerX < 900 - playerSize) {
             playerElement.style.left = `${playerX + playerSpeed}px`;
             playerX += playerSpeed;  
             checkContact();
@@ -211,7 +212,7 @@ function checkContact(){
                 updateScore(rsg[i].boost);
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
-                playCollectSound();
+                playCollectSound(rsg[i].boost);
             }
         }
         if(playerX <= rsg[i].width + rsgSizeX && playerX >= rsg[i].width){
@@ -220,7 +221,7 @@ function checkContact(){
                 updateScore(rsg[i].boost);
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
-                playCollectSound();
+                playCollectSound(rsg[i].boost);
             }
         }
         if(playerY + playerSize >= rsg[i].height && playerY + playerSize <= rsg[i].height + rsgSizeY){
@@ -229,7 +230,7 @@ function checkContact(){
                 updateScore(rsg[i].boost);
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
-                playCollectSound();
+                playCollectSound(rsg[i].boost);
             }
         }
         if(playerY <= rsg[i].height + rsgSizeY && playerY >= rsg[i].height){
@@ -238,7 +239,7 @@ function checkContact(){
                 updateScore(rsg[i].boost);
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
-                playCollectSound();
+                playCollectSound(rsg[i].boost);
             }
         }
     }
@@ -300,6 +301,7 @@ function resetStats(){
     scoreElement.innerHTML = 0;
     score = 0;
     clearInterval(stopSpawnRSG);
+    clearInterval(stopSpawnBOOST);
 
     while(rsg.length > 0){
         rsg.pop();
@@ -323,7 +325,7 @@ function spawnRSGSpeed(speed){
         speed = 500;
     }
 
-    setTimeout(() => {
+    stopSpawnRSG = setTimeout(() => {
         if(!end){
             spawnRSG(0);
             console.log(speed);
@@ -332,8 +334,15 @@ function spawnRSGSpeed(speed){
     }, speed);
 }
 
-function playCollectSound() {
-    let audio = new Audio("audio/collect-rsg.mp3");
+function playCollectSound(boost) {
+    let audio;
+
+    if(boost === 1){
+        audio = new Audio("audio/oh-my-god.mp3");
+    } else {
+        audio = new Audio("audio/collect-rsg.mp3");
+    }
+
     audio.play()
 }
 
@@ -345,7 +354,7 @@ function startGame(){
     
     let i = 1;
     let randNum = Math.floor(Math.random() * 20);
-    setInterval(() => {
+    stopSpawnBOOST = setInterval(() => {
         if (i === randNum){
             if(!end){
                 spawnRSG(1);
