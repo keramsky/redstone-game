@@ -211,6 +211,7 @@ function checkContact(){
                 updateScore(rsg[i].boost);
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
+                playCollectSound();
             }
         }
         if(playerX <= rsg[i].width + rsgSizeX && playerX >= rsg[i].width){
@@ -219,6 +220,7 @@ function checkContact(){
                 updateScore(rsg[i].boost);
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
+                playCollectSound();
             }
         }
         if(playerY + playerSize >= rsg[i].height && playerY + playerSize <= rsg[i].height + rsgSizeY){
@@ -227,6 +229,7 @@ function checkContact(){
                 updateScore(rsg[i].boost);
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
+                playCollectSound();
             }
         }
         if(playerY <= rsg[i].height + rsgSizeY && playerY >= rsg[i].height){
@@ -235,6 +238,7 @@ function checkContact(){
                 updateScore(rsg[i].boost);
                 rsg[i].width = undefined;
                 rsg[i].height = undefined;
+                playCollectSound();
             }
         }
     }
@@ -313,6 +317,11 @@ function spawnRSGSpeed(speed){
         }
         spawnRSGSpeed(speed)
     }, speed);
+}
+
+function playCollectSound() {
+    let audio = new Audio("audio/collect-rsg.mp3");
+    audio.play()
 }
 
 function startGame(){
