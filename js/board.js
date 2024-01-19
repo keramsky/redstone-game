@@ -339,7 +339,7 @@ function playCollectSound(boost) {
 
     if(boost === 1){
         audio = new Audio("audio/oh-my-god.mp3");
-    } else {
+    } else if(boost === 0) {
         audio = new Audio("audio/collect-rsg.mp3");
     }
 
