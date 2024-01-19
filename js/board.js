@@ -30,7 +30,7 @@ let rsg = [
 ];
 
 function setTimer(){
-    let sec = 60;
+    let sec = 2;
     timerElement.innerHTML = `${sec}`;
 
     timer = setInterval(() => {
@@ -269,6 +269,18 @@ function endGame(){
 
     restartButton.style.left = "340px";
 
+    let niceMemeVideo = document.createElement("video");
+    niceMemeVideo.src = "video/nice-meme-video.mp4";
+    niceMemeVideo.autoplay = "1";
+    niceMemeVideo.style.position = "fixed";
+    niceMemeVideo.style.top = "50px";
+    niceMemeVideo.style.left = "50px";
+    niceMemeVideo.style.width = "400px";
+
+    setTimeout(() => {
+        niceMemeVideo.remove();
+    }, 3400);
+
     restartButton.addEventListener('click', function(){
         restartButton.remove();
         scoreText.remove();
@@ -277,6 +289,7 @@ function endGame(){
         startGame();
     });
 
+    document.body.appendChild(niceMemeVideo);
     startButtonContainerElement.appendChild(scoreText);
     startButtonContainerElement.appendChild(restartButton);
 
