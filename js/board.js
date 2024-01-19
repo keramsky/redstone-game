@@ -346,6 +346,7 @@ function playCollectSound(boost) {
     audio.play()
 }
 
+
 function startGame(){
     score = 0;
     end = false;
