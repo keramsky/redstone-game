@@ -1,10 +1,10 @@
 let playerY = 175;
 let playerX =  400;
-let playerSize = 50;
+let playerSize = 60;
 let playerSpeed = 10;
 let playerSpeedDiagonal = 5;
 let rsgSizeX = 30;
-let rsgSizeY = 24;
+let rsgSizeY = 25;
 let rsgID = 1;
 let score = 0;
 let end = false;
@@ -63,9 +63,9 @@ function spawnRSG(boost){
 
     rsgElement.classList.add(`id${rsgID}`);
     if(boost === 1){
-        rsgElement.src = "images/rsg2.png";
+        rsgElement.src = "images/rsgBlue.png";
     } else {
-        rsgElement.src = "images/rsg.png";
+        rsgElement.src = "images/rsgPink.png";
     }
 
     rsgContainerElement.appendChild(rsgElement);
@@ -338,9 +338,9 @@ function playCollectSound(boost) {
     let audio;
 
     if(boost === 1){
-        audio = new Audio("audio/oh-my-god.mp3");
+        audio = new Audio("audio/boost.mp3");
     } else if(boost === 0) {
-        audio = new Audio("audio/collect-rsg.mp3");
+        audio = new Audio("audio/coin.mp3");
     }
 
     audio.play()

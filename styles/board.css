@@ -16,7 +16,7 @@
 
 .score-container{
     position: flex;
-    margin-right: 50px;
+    margin-left: 50px;
     display: flex;
     flex-direction: column;
     row-gap: 15px;
@@ -37,5 +37,5 @@
 }
 
 .arrows{
-    margin-left: 50px;
+    margin-right: 50px;
 }
