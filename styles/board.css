@@ -15,7 +15,9 @@
 }
 
 .score-container{
-    position: flex;
+    position: absolute;
+    right: -100px;
+    top: 150px;
     margin-left: 50px;
     display: flex;
     flex-direction: column;
@@ -37,5 +39,8 @@
 }
 
 .arrows{
+    position: absolute;
+    left: -240px;
+    top: 150px;
     margin-right: 50px;
 }
