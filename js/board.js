@@ -1,13 +1,13 @@
 let playerY = 175;
 let playerX =  400;
 let playerSize = 60;
-let playerSpeed = 10;
+let playerSpeed = 1;
 let playerSpeedDiagonal = 5;
 let rsgSizeX = 30;
 let rsgSizeY = 25;
 let rsgID = 1;
 let score = 0;
-let end = false;
+let end = true;
 let stopSpawnRSG;
 let stopSpawnBOOST;
 let isUpArrowPressed = false;
@@ -24,7 +24,6 @@ startButtonElement.addEventListener('click', function(){
     startGame();
 });
 
-checkIfKeyPressed();
 
 let rsg = [
 
@@ -102,148 +101,61 @@ function spawnRSG(boost){
     rsgID++;
 }
 
-function movePlayer() {
-    if(!end){
-        if (isUpArrowPressed && isRightArrowPressed && (playerY > 0 && playerX < 900 - playerSize)) {
-            playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
-            playerX += playerSpeedDiagonal;  
-    
-            playerElement.style.top = `${playerY - playerSpeedDiagonal}px`;
-            playerY -= playerSpeedDiagonal;  
-            checkContact();
-        }
-    
-        else if (isUpArrowPressed && isLeftArrowPressed && (playerY > 0 && playerX > 0)) {
-            playerElement.style.left = `${playerX - playerSpeedDiagonal}px`;
-            playerX -= playerSpeedDiagonal;  
-    
-            playerElement.style.top = `${playerY - playerSpeedDiagonal}px`;
-            playerY -= playerSpeedDiagonal;  
-            checkContact();
-        }
-    
-        else if (isDownArrowPressed && isRightArrowPressed && (playerY < 450 - playerSize && playerX < 900 - playerSize)) {
-            playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
-            playerX += playerSpeedDiagonal;  
-    
-            playerElement.style.top = `${playerY + playerSpeedDiagonal}px`;
-            playerY += playerSpeedDiagonal;  
-            checkContact();
-        }
-    
-        else if (isDownArrowPressed && isLeftArrowPressed && (playerY < 450 - playerSize && playerX > 0)) {
-            playerElement.style.left = `${playerX + playerSpeedDiagonal}px`;
-            playerX -= playerSpeedDiagonal;  
-    
-            playerElement.style.top = `${playerY + playerSpeedDiagonal}px`;
-            playerY += playerSpeedDiagonal;  
-            checkContact();
-        }
-    
-    
-        else if (isUpArrowPressed && playerY > 0) {
-            playerElement.style.top = `${playerY - playerSpeed}px`;
-            playerY -= playerSpeed;
-            checkContact();
-        }
-        else if (isDownArrowPressed && playerY < 450 - playerSize) {
-            playerElement.style.top = `${playerY + playerSpeed}px`;
-            playerY += playerSpeed;  
-            checkContact();
-        }
-        else if (isLeftArrowPressed && playerX > 0) {
-            playerElement.style.left = `${playerX - playerSpeed}px`;
-            playerX -= playerSpeed;  
-            checkContact();
-        }
-        else if (isRightArrowPressed && playerX < 900 - playerSize) {
-            playerElement.style.left = `${playerX + playerSpeed}px`;
-            playerX += playerSpeed;  
-            checkContact();
-        }
-    }
+let stop = false;
+
+//setInterval(() => {
+//    movePlayer();
+//}, 50)
 
 
-}
 
-function checkIfKeyPressed(){
 
-    if(!end){
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowUp') {
-                isUpArrowPressed = true;
-            } else if (event.key === 'ArrowRight') {
-                isRightArrowPressed = true;
-            } else if (event.key === 'ArrowLeft') {
-                isLeftArrowPressed = true;
-            } else if (event.key === 'ArrowDown') {
-                isDownArrowPressed = true;
-            }
-            movePlayer();
-        });
-        
-        document.addEventListener('keyup', (event) => {
-            if (event.key === 'ArrowUp') {
-                isUpArrowPressed = false;
-            } else if (event.key === 'ArrowRight') {
-                isRightArrowPressed = false;
-            } else if (event.key === 'ArrowLeft') {
-                isLeftArrowPressed = false;
-            } else if (event.key === 'ArrowDown') {
-                isDownArrowPressed = false;
-            }
-            movePlayer();
-        });
-    }
+// function checkContact(){
+//     if(rsg.length == 0){
+//         return;
+//     }
 
-}
+//     for(let i = 0; i < rsg.length; i++){
+//         let currentRSG = document.querySelector(`.id${rsg[i].id}`);
 
-function checkContact(){
-    if(rsg.length == 0){
-        return;
-    }
-
-    for(let i = 0; i < rsg.length; i++){
-        let currentRSG = document.querySelector(`.id${rsg[i].id}`);
-
-        if(playerX + playerSize >= rsg[i].width && playerX + playerSize <= rsg[i].width + rsgSizeX){
-            if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >= rsg[i].height){
-                currentRSG.remove();
-                updateScore(rsg[i].boost);
-                rsg[i].width = undefined;
-                rsg[i].height = undefined;
-                playCollectSound(rsg[i].boost);
-            }
-        }
-        if(playerX <= rsg[i].width + rsgSizeX && playerX >= rsg[i].width){
-            if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >=rsg[i].height){
-                currentRSG.remove();
-                updateScore(rsg[i].boost);
-                rsg[i].width = undefined;
-                rsg[i].height = undefined;
-                playCollectSound(rsg[i].boost);
-            }
-        }
-        if(playerY + playerSize >= rsg[i].height && playerY + playerSize <= rsg[i].height + rsgSizeY){
-            if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
-                currentRSG.remove();
-                updateScore(rsg[i].boost);
-                rsg[i].width = undefined;
-                rsg[i].height = undefined;
-                playCollectSound(rsg[i].boost);
-            }
-        }
-        if(playerY <= rsg[i].height + rsgSizeY && playerY >= rsg[i].height){
-            if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
-                currentRSG.remove();
-                updateScore(rsg[i].boost);
-                rsg[i].width = undefined;
-                rsg[i].height = undefined;
-                playCollectSound(rsg[i].boost);
-            }
-        }
-    }
-}
+//         if(playerX + playerSize >= rsg[i].width && playerX + playerSize <= rsg[i].width + rsgSizeX){
+//             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >= rsg[i].height){
+//                 currentRSG.remove();
+//                 updateScore(rsg[i].boost);
+//                 rsg[i].width = undefined;
+//                 rsg[i].height = undefined;
+//                 playCollectSound(rsg[i].boost);
+//             }
+//         }
+//         if(playerX <= rsg[i].width + rsgSizeX && playerX >= rsg[i].width){
+//             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >=rsg[i].height){
+//                 currentRSG.remove();
+//                 updateScore(rsg[i].boost);
+//                 rsg[i].width = undefined;
+//                 rsg[i].height = undefined;
+//                 playCollectSound(rsg[i].boost);
+//             }
+//         }
+//         if(playerY + playerSize >= rsg[i].height && playerY + playerSize <= rsg[i].height + rsgSizeY){
+//             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
+//                 currentRSG.remove();
+//                 updateScore(rsg[i].boost);
+//                 rsg[i].width = undefined;
+//                 rsg[i].height = undefined;
+//                 playCollectSound(rsg[i].boost);
+//             }
+//         }
+//         if(playerY <= rsg[i].height + rsgSizeY && playerY >= rsg[i].height){
+//             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
+//                 currentRSG.remove();
+//                 updateScore(rsg[i].boost);
+//                 rsg[i].width = undefined;
+//                 rsg[i].height = undefined;
+//                 playCollectSound(rsg[i].boost);
+//             }
+//         }
+//     }
+// }
 
 function updateScore(boost){
     if(boost === 1){
@@ -258,6 +170,9 @@ function updateScore(boost){
 function endGame(){
     end = true;
     boardElement.style.filter = "blur(7px)";
+
+    let audio = new Audio("audio/victory.mp3");
+    audio.play();
 
     let scoreText = document.createElement("p");
     scoreText.classList.add("score-text");
@@ -337,6 +252,9 @@ function playCollectSound(boost) {
 function startGame(){
     score = 0;
     end = false;
+
+    x = 420;
+    y = 200;
 
     setTimer();
     
