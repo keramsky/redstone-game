@@ -84,6 +84,25 @@ body{
     font-size: 20px;
 }
 
+.github{
+    position: fixed;
+    bottom: 70px;
+    right: 30px;
+    font-size: 20px;
+}
+
+.github:link {
+    color: black;
+}
+
+.github:visited {
+    color: black;
+}
+
+.github:hover {
+    opacity: 0.6;
+}
+
 .score-text{
     font-size: 40px;
     position: absolute;

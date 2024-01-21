@@ -55,7 +55,7 @@ function checkColision() {
                 deleteRSG(i, currentRSG);
             }
         }
-        if(y + size >= rsg[i].height && y + size <= rsg[i].height){
+        if(y + size >= rsg[i].height && y + size <= rsg[i].height + RSGsizeY){
             if(x <= rsg[i].width + RSGsizeX && x + size >= rsg[i].width){
                 deleteRSG(i, currentRSG);
             }
@@ -77,10 +77,10 @@ function deleteRSG(i, currentRSG) {
 }
 
 addEventListener("keydown" , (event) => {
-    if(event.key === "ArrowRight") vxr = 5;
-    if(event.key === "ArrowDown") vyd = 5;
-    if(event.key === "ArrowLeft") vxl = -5;
-    if(event.key === "ArrowUp") vyu = -5;
+    if(event.key === "ArrowRight") vxr = 2;
+    if(event.key === "ArrowDown") vyd = 2;
+    if(event.key === "ArrowLeft") vxl = -2;
+    if(event.key === "ArrowUp") vyu = -2;
 });
 
 addEventListener("keyup", (event) => {

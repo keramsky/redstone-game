@@ -73,8 +73,6 @@ function spawnRSG(boost){
         let boostRSGElementID = rsgID;
 
         setTimeout(() => {
-            let boostRSGElement = document.querySelector(`.id${boostRSGElementID}`);
-            boostRSGElement.remove();
             for(let i = 0; i < rsg.length; i++){
                 if (rsg[i].id === boostRSGElementID){
                     rsg[i].boost = undefined;
@@ -101,61 +99,6 @@ function spawnRSG(boost){
     rsgID++;
 }
 
-let stop = false;
-
-//setInterval(() => {
-//    movePlayer();
-//}, 50)
-
-
-
-
-// function checkContact(){
-//     if(rsg.length == 0){
-//         return;
-//     }
-
-//     for(let i = 0; i < rsg.length; i++){
-//         let currentRSG = document.querySelector(`.id${rsg[i].id}`);
-
-//         if(playerX + playerSize >= rsg[i].width && playerX + playerSize <= rsg[i].width + rsgSizeX){
-//             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >= rsg[i].height){
-//                 currentRSG.remove();
-//                 updateScore(rsg[i].boost);
-//                 rsg[i].width = undefined;
-//                 rsg[i].height = undefined;
-//                 playCollectSound(rsg[i].boost);
-//             }
-//         }
-//         if(playerX <= rsg[i].width + rsgSizeX && playerX >= rsg[i].width){
-//             if(playerY <= rsg[i].height + rsgSizeY && playerY + playerSize >=rsg[i].height){
-//                 currentRSG.remove();
-//                 updateScore(rsg[i].boost);
-//                 rsg[i].width = undefined;
-//                 rsg[i].height = undefined;
-//                 playCollectSound(rsg[i].boost);
-//             }
-//         }
-//         if(playerY + playerSize >= rsg[i].height && playerY + playerSize <= rsg[i].height + rsgSizeY){
-//             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
-//                 currentRSG.remove();
-//                 updateScore(rsg[i].boost);
-//                 rsg[i].width = undefined;
-//                 rsg[i].height = undefined;
-//                 playCollectSound(rsg[i].boost);
-//             }
-//         }
-//         if(playerY <= rsg[i].height + rsgSizeY && playerY >= rsg[i].height){
-//             if(playerX <= rsg[i].width + rsgSizeX && playerX + playerSize >= rsg[i].width){
-//                 currentRSG.remove();
-//                 updateScore(rsg[i].boost);
-//                 rsg[i].width = undefined;
-//                 rsg[i].height = undefined;
-//                 playCollectSound(rsg[i].boost);
-//             }
-//         }
-//     }
-// }
 
 function updateScore(boost){
     if(boost === 1){
@@ -211,11 +154,8 @@ function resetStats(){
 
     rsgContainerElement.innerHTML = "";
 
-    playerY = 175;
-    playerX = 400;
-
-    playerElement.style.left = "400px";
-    playerElement.style.top = "175px";
+    x = 175;
+    y = 400;
 
 }
 
@@ -260,6 +200,7 @@ function startGame(){
     
     let i = 1;
     let randNum = Math.floor(Math.random() * 20);
+    if(randNum === 0) randNum = 1;
     stopSpawnBOOST = setInterval(() => {
         if (i === randNum){
             if(!end){
@@ -269,7 +210,11 @@ function startGame(){
         if(i === 20 || i === 40){
             i = 0;
             randNum = Math.floor(Math.random() * 20);
+            if(randNum === 0) randNum = 1;
         }
+
+        console.log(randNum);
+        console.log(i);
 
         i++;
         
