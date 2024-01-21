@@ -151,6 +151,7 @@ function resetStats(){
     clearInterval(stopSpawnRSG);
     clearInterval(stopSpawnBOOST);
     rsgSpawnSpeed = 3000;
+    changeSpawnRSGSpeed = 150;
 
     while(rsg.length > 0){
         rsg.pop();
@@ -223,6 +224,9 @@ function startGame(){
     if(!end){
         spawnRSG(0);
     }
+
+    rsgSpawnSpeed = 3000;
+    changeSpawnRSGSpeed = 150;
 
     spawnRSGSpeed(rsgSpawnSpeed - changeSpawnRSGSpeed);
 }
