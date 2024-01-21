@@ -150,6 +150,7 @@ function resetStats(){
     score = 0;
     clearInterval(stopSpawnRSG);
     clearInterval(stopSpawnBOOST);
+    rsgSpawnSpeed = 3000;
 
     while(rsg.length > 0){
         rsg.pop();
