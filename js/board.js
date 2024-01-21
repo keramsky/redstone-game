@@ -17,6 +17,7 @@ let isDownArrowPressed = false;
 let scoreWithBooster = 10;
 let rsgSpawnSpeed = 3000;
 let changeSpawnRSGSpeed = 150;
+let boostRSGElementID;
 
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
@@ -73,6 +74,8 @@ function spawnRSG(boost){
         let boostRSGElementID = rsgID;
 
         setTimeout(() => {
+            let boostRSGElement = document.querySelector(`.id${boostRSGElementID}`);
+            boostRSGElement.remove();
             for(let i = 0; i < rsg.length; i++){
                 if (rsg[i].id === boostRSGElementID){
                     rsg[i].boost = undefined;
@@ -170,7 +173,6 @@ function spawnRSGSpeed(speed){
     stopSpawnRSG = setTimeout(() => {
         if(!end){
             spawnRSG(0);
-            console.log(speed);
         }
         spawnRSGSpeed(speed)
     }, speed);
@@ -212,9 +214,6 @@ function startGame(){
             randNum = Math.floor(Math.random() * 20);
             if(randNum === 0) randNum = 1;
         }
-
-        console.log(randNum);
-        console.log(i);
 
         i++;
         
