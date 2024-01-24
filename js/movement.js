@@ -77,10 +77,10 @@ function deleteRSG(i, currentRSG) {
 }
 
 addEventListener("keydown" , (event) => {
-    if(event.key === "ArrowRight") vxr = 2;
-    if(event.key === "ArrowDown") vyd = 2;
-    if(event.key === "ArrowLeft") vxl = -2;
-    if(event.key === "ArrowUp") vyu = -2;
+    if(event.key === "ArrowRight") vxr = playerSpeed;
+    if(event.key === "ArrowDown") vyd = playerSpeed;
+    if(event.key === "ArrowLeft") vxl = -playerSpeed;
+    if(event.key === "ArrowUp") vyu = -playerSpeed;
 });
 
 addEventListener("keyup", (event) => {
