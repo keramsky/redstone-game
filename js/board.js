@@ -86,6 +86,12 @@ function spawnRSG(boost){
                 }
             }
         }, 7000);
+
+
+
+        boostTimerContainerElement.style.visibility = "hidden";
+        animateBoostProgress();
+
     }
 
     rsgElement.style.position = `absolute`;
@@ -102,6 +108,25 @@ function spawnRSG(boost){
     rsgID++;
 }
 
+function animateBoostProgress(){
+    boostTimerContainerElement.style.visibility = "visible";
+
+    let progressLine = document.createElement("div");
+    progressLine.classList.add("js-animation-line")
+    progressLine.style.backgroundColor = "rgb(0, 177, 64)"
+    progressLine.style.height = "100%";
+    progressLine.style.width = "100%";
+    progressLine.style.animationName = "animateProgress";
+    progressLine.style.animationTimingFunction = "linear";
+    progressLine.style.animationDuration = "7s";
+
+    boostTimerContainerElement.appendChild(progressLine);
+
+    setTimeout(() => {
+        progressLine.remove();
+        boostTimerContainerElement.style.visibility = "hidden";
+    }, 7000);
+}
 
 function updateScore(boost){
     if(boost === 1){
@@ -138,6 +163,8 @@ function endGame(){
         resetStats();
         startGame();
     });
+
+    boostTimerContainerElement.style.visibility = "hidden";
 
     startButtonContainerElement.appendChild(scoreText);
     startButtonContainerElement.appendChild(restartButton);

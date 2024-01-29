@@ -74,6 +74,9 @@ function deleteRSG(i, currentRSG) {
     rsg[i].width = undefined;
     rsg[i].height = undefined;
     playCollectSound(rsg[i].boost);
+    if(rsg[i].boost == 1){
+        boostTimerContainerElement.style.visibility = "hidden";
+    }
 }
 
 addEventListener("keydown" , (event) => {
