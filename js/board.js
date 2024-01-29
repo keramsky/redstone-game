@@ -18,6 +18,7 @@ let scoreWithBooster = 10;
 let rsgSpawnSpeed = 3000;
 let changeSpawnRSGSpeed = 150;
 let boostRSGElementID;
+let isBoostActive = false;
 
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
@@ -85,9 +86,7 @@ function spawnRSG(boost){
                     break;
                 }
             }
-        }, 7000);
-
-        boostTimerContainerElement.innerHTML = "";
+        }, 6999);
 
         animateBoostProgress();
 
@@ -108,7 +107,11 @@ function spawnRSG(boost){
 }
 
 function animateBoostProgress(){
-    boostTimerContainerElement.style.visibility = "visible";
+    if(isBoostActive){
+        boostTimerContainerElement2.style.visibility = "visible";
+    } else {
+        boostTimerContainerElement.style.visibility = "visible";
+    }
 
     let progressLine = document.createElement("div");
     progressLine.classList.add("js-animation-line")
@@ -119,11 +122,20 @@ function animateBoostProgress(){
     progressLine.style.animationTimingFunction = "linear";
     progressLine.style.animationDuration = "7s";
 
-    boostTimerContainerElement.appendChild(progressLine);
+    if(isBoostActive){
+        boostTimerContainerElement2.appendChild(progressLine);
+    } else {
+        boostTimerContainerElement.appendChild(progressLine);
+    }
+
+    isBoostActive = true;
 
     setTimeout(() => {
         progressLine.remove();
         boostTimerContainerElement.style.visibility = "hidden";
+        boostTimerContainerElement2.style.visibility = "hidden";
+
+        isBoostActive = false;
     }, 7000);
 }
 
@@ -138,6 +150,7 @@ function updateScore(boost){
 }
 
 function endGame(){
+
     end = true;
     boardElement.style.filter = "blur(7px)";
 
@@ -165,10 +178,11 @@ function endGame(){
 
     boostTimerContainerElement.style.visibility = "hidden";
     boostTimerContainerElement.innerHTML = "";
+    boostTimerContainerElement2.style.visibility = "hidden";
+    boostTimerContainerElement2.innerHTML = "";
 
     startButtonContainerElement.appendChild(scoreText);
     startButtonContainerElement.appendChild(restartButton);
-
 }
 
 function resetStats(){
@@ -219,8 +233,8 @@ function playCollectSound(boost) {
     audio.play()
 }
 
-
 function startGame(){
+
     score = 0;
     end = false;
 
@@ -230,7 +244,7 @@ function startGame(){
     setTimer();
     
     let i = 1;
-    let randNum = Math.floor(Math.random() * 20);
+    let randNum = Math.floor(Math.random() * 6);
     if(randNum === 0) randNum = 1;
     stopSpawnBOOST = setInterval(() => {
         if (i === randNum){
@@ -238,9 +252,9 @@ function startGame(){
                 spawnRSG(1);
             }
         }
-        if(i === 20 || i === 40){
+        if(i === 6 || i === 12){
             i = 0;
-            randNum = Math.floor(Math.random() * 20);
+            randNum = Math.floor(Math.random() * 6);
             if(randNum === 0) randNum = 1;
         }
 
