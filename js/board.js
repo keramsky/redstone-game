@@ -87,9 +87,8 @@ function spawnRSG(boost){
             }
         }, 7000);
 
+        boostTimerContainerElement.innerHTML = "";
 
-
-        boostTimerContainerElement.style.visibility = "hidden";
         animateBoostProgress();
 
     }
@@ -165,6 +164,7 @@ function endGame(){
     });
 
     boostTimerContainerElement.style.visibility = "hidden";
+    boostTimerContainerElement.innerHTML = "";
 
     startButtonContainerElement.appendChild(scoreText);
     startButtonContainerElement.appendChild(restartButton);

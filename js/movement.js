@@ -76,6 +76,7 @@ function deleteRSG(i, currentRSG) {
     playCollectSound(rsg[i].boost);
     if(rsg[i].boost == 1){
         boostTimerContainerElement.style.visibility = "hidden";
+        boostTimerContainerElement.innerHTML = "";
     }
 }
 
