@@ -85,7 +85,9 @@ function spawnRSG(boost){
                     break;
                 }
             }
-        }, 6999);
+        }, 7000);
+
+        boostTimerContainerElement.innerHTML = "";
 
         animateBoostProgress();
 
@@ -108,7 +110,6 @@ function spawnRSG(boost){
 function animateBoostProgress(){
     boostTimerContainerElement.style.visibility = "visible";
 
-
     let progressLine = document.createElement("div");
     progressLine.classList.add("js-animation-line")
     progressLine.style.backgroundColor = "rgb(0, 177, 64)"
@@ -117,7 +118,6 @@ function animateBoostProgress(){
     progressLine.style.animationName = "animateProgress";
     progressLine.style.animationTimingFunction = "linear";
     progressLine.style.animationDuration = "7s";
-
 
     boostTimerContainerElement.appendChild(progressLine);
 
@@ -138,7 +138,6 @@ function updateScore(boost){
 }
 
 function endGame(){
-
     end = true;
     boardElement.style.filter = "blur(7px)";
 
@@ -166,11 +165,10 @@ function endGame(){
 
     boostTimerContainerElement.style.visibility = "hidden";
     boostTimerContainerElement.innerHTML = "";
-    boostTimerContainerElement2.style.visibility = "hidden";
-    boostTimerContainerElement2.innerHTML = "";
 
     startButtonContainerElement.appendChild(scoreText);
     startButtonContainerElement.appendChild(restartButton);
+
 }
 
 function resetStats(){
@@ -221,8 +219,8 @@ function playCollectSound(boost) {
     audio.play()
 }
 
-function startGame(){
 
+function startGame(){
     score = 0;
     end = false;
 
@@ -232,7 +230,7 @@ function startGame(){
     setTimer();
     
     let i = 1;
-    let randNum = Math.floor(Math.random() * 6);
+    let randNum = Math.floor(Math.random() * 15);
     if(randNum === 0) randNum = 1;
     stopSpawnBOOST = setInterval(() => {
         if (i === randNum){
@@ -240,10 +238,19 @@ function startGame(){
                 spawnRSG(1);
             }
         }
-        if(i === 6 || i === 12){
-            i = 0;
-            randNum = Math.floor(Math.random() * 6);
-            if(randNum === 0) randNum = 1;
+        if(i === 15){
+            setTimeout(() => {
+                i = 0;
+                randNum = Math.floor(Math.random() * 15);
+                if(randNum === 0) randNum = 1;
+            }, 8000);
+        }
+        if(i === 38){
+            setTimeout(() => {
+                i = 0;
+                randNum = Math.floor(Math.random() * 14);
+                if(randNum === 0) randNum = 1;
+            }, 8000);
         }
 
         i++;

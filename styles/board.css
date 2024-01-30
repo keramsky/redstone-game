@@ -63,15 +63,6 @@
     visibility: hidden;
 }
 
-.best-score-text{
-    position: absolute;
-    right: 0;
-    bottom: -70px;
-    color: rgb(36, 53, 91);
-    font-weight: 700;
-    font-size: 40px;
-}
-
 @keyframes animateProgress {
     from {
         width: 0;
