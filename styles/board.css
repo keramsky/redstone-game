@@ -52,8 +52,7 @@
     left: 0;
 }
 
-.boost-timer-container, 
-.boost-timer-container2{
+.boost-timer-container{
     position: absolute;
     bottom: -60px;
     left: 0;
@@ -62,10 +61,6 @@
     box-shadow: 0 0 10px rgb(0, 0, 0, 20);
     padding: 2px;
     visibility: hidden;
-}
-
-.boost-timer-container2{
-    bottom: -100px;
 }
 
 .best-score-text{

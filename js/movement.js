@@ -77,8 +77,6 @@ function deleteRSG(i, currentRSG) {
     if(rsg[i].boost == 1){
         boostTimerContainerElement.style.visibility = "hidden";
         boostTimerContainerElement.innerHTML = "";
-        boostTimerContainerElement2.style.visibility = "hidden";
-        boostTimerContainerElement2.innerHTML = "";
     }
 }
 

@@ -18,7 +18,6 @@ let scoreWithBooster = 10;
 let rsgSpawnSpeed = 3000;
 let changeSpawnRSGSpeed = 150;
 let boostRSGElementID;
-let isBoostActive = false;
 
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
@@ -107,11 +106,8 @@ function spawnRSG(boost){
 }
 
 function animateBoostProgress(){
-    if(isBoostActive){
-        boostTimerContainerElement2.style.visibility = "visible";
-    } else {
-        boostTimerContainerElement.style.visibility = "visible";
-    }
+    boostTimerContainerElement.style.visibility = "visible";
+
 
     let progressLine = document.createElement("div");
     progressLine.classList.add("js-animation-line")
@@ -122,20 +118,12 @@ function animateBoostProgress(){
     progressLine.style.animationTimingFunction = "linear";
     progressLine.style.animationDuration = "7s";
 
-    if(isBoostActive){
-        boostTimerContainerElement2.appendChild(progressLine);
-    } else {
-        boostTimerContainerElement.appendChild(progressLine);
-    }
 
-    isBoostActive = true;
+    boostTimerContainerElement.appendChild(progressLine);
 
     setTimeout(() => {
         progressLine.remove();
         boostTimerContainerElement.style.visibility = "hidden";
-        boostTimerContainerElement2.style.visibility = "hidden";
-
-        isBoostActive = false;
     }, 7000);
 }
 
