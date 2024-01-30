@@ -1,34 +1,8 @@
-let playerY = 175;
-let playerX =  400;
-let playerSize = 60;
-let playerSpeed = 2;
-let playerSpeedDiagonal = 5;
-let rsgSizeX = 30;
-let rsgSizeY = 25;
-let rsgID = 1;
-let score = 0;
-let end = true;
-let stopSpawnRSG;
-let stopSpawnBOOST;
-let isUpArrowPressed = false;
-let isRightArrowPressed = false;
-let isLeftArrowPressed = false;
-let isDownArrowPressed = false;
-let scoreWithBooster = 10;
-let rsgSpawnSpeed = 3000;
-let changeSpawnRSGSpeed = 150;
-let boostRSGElementID;
-
 startButtonElement.addEventListener('click', function(){
     boardElement.style.filter = "blur(0px)";
     startButtonElement.remove();
     startGame();
 });
-
-
-let rsg = [
-
-];
 
 function setTimer(){
     let sec = 60;
@@ -45,7 +19,7 @@ function setTimer(){
 }
 
 function spawnRSG(boost){
-
+    // random coordinates
     let rsgX = Math.floor(Math.random() * 860);
     let rsgY = Math.floor(Math.random() * 410);
 
@@ -57,7 +31,7 @@ function spawnRSG(boost){
         rsgY = 30;
     }
 
-
+    // create the rsg point
 
     let rsgElement = document.createElement("img");
 
@@ -70,7 +44,7 @@ function spawnRSG(boost){
 
     rsgContainerElement.appendChild(rsgElement);
 
-    if(boost === 1){
+    if(boost === 1){ // delete the rsg point after 7 seconds
         let boostRSGElementID = rsgID;
 
         setTimeout(() => {
@@ -103,10 +77,10 @@ function spawnRSG(boost){
         rsg.push({boost: 0, id: rsgID, height: rsgY, width: rsgX});
     }
 
-
     rsgID++;
 }
 
+// boost animation
 function animateBoostProgress(){
     boostTimerContainerElement.style.visibility = "visible";
 
@@ -163,12 +137,12 @@ function endGame(){
         startGame();
     });
 
-    boostTimerContainerElement.style.visibility = "hidden";
-    boostTimerContainerElement.innerHTML = "";
-
     startButtonContainerElement.appendChild(scoreText);
     startButtonContainerElement.appendChild(restartButton);
 
+    // delete the boost timer
+    boostTimerContainerElement.style.visibility = "hidden";
+    boostTimerContainerElement.innerHTML = "";
 }
 
 function resetStats(){
@@ -186,9 +160,9 @@ function resetStats(){
 
     rsgContainerElement.innerHTML = "";
 
+    // move the player to the default spawn place
     x = 175;
     y = 400;
-
 }
 
 function spawnRSGSpeed(speed){
@@ -219,17 +193,8 @@ function playCollectSound(boost) {
     audio.play()
 }
 
-
-function startGame(){
-    score = 0;
-    end = false;
-
-    x = 420;
-    y = 200;
-
-    setTimer();
-    
-    let i = 1;
+function spawnBoosts() {
+    let i = 1; // time counter
     let randNum = Math.floor(Math.random() * 15);
     if(randNum === 0) randNum = 1;
     stopSpawnBOOST = setInterval(() => {
@@ -239,14 +204,14 @@ function startGame(){
             }
         }
         if(i === 15){
-            setTimeout(() => {
+            setTimeout(() => { // wait 8 seconds and draw random spawn time
                 i = 0;
                 randNum = Math.floor(Math.random() * 15);
                 if(randNum === 0) randNum = 1;
             }, 8000);
         }
         if(i === 38){
-            setTimeout(() => {
+            setTimeout(() => { // wait 8 seconds and draw random spawn time
                 i = 0;
                 randNum = Math.floor(Math.random() * 14);
                 if(randNum === 0) randNum = 1;
@@ -256,6 +221,18 @@ function startGame(){
         i++;
         
     }, 1000);
+}
+
+function startGame(){
+    score = 0;
+    end = false;
+
+    // move the player to his default spawn place
+    x = 420;
+    y = 200;
+
+    setTimer();
+    spawnBoosts();
 
     if(!end){
         spawnRSG(0);

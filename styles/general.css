@@ -130,3 +130,34 @@ body{
     align-items: center;
     margin-top: 15px;
 }
+
+.score-container{
+    position: absolute;
+    right: -100px;
+    top: 150px;
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+}
+
+.score,
+.timer{
+    bottom: 105px;
+    right: 30px;
+    font-size: 35px;
+    background-color: rgb(36, 53, 91);
+    color: white;
+    height: 60px;
+    width: 70px;
+    text-align: center;
+    padding-top: 10px;
+    border-radius: 50%;
+}
+
+.arrows{
+    position: absolute;
+    left: -240px;
+    top: 150px;
+    margin-right: 50px;
+}

@@ -14,8 +14,6 @@ let vxr = 0;
 let vyu = 0;
 let vyd = 0;
 
-
-
 function update(){
     ctx.clearRect(0, 0, canvas.clientWidth, canvas.height)
     if(!end){
@@ -44,6 +42,8 @@ function checkColision() {
     for(let i = 0; i < rsg.length; i++){
 
         let currentRSG = document.querySelector(`.id${rsg[i].id}`);
+
+        // check whether the player has collected any points
 
         if(x + size >= rsg[i].width && x + size <= rsg[i].width + RSGsizeX){
             if(y <= rsg[i].height + RSGsizeY && y + size >= rsg[i].height){
@@ -79,6 +79,8 @@ function deleteRSG(i, currentRSG) {
         boostTimerContainerElement.innerHTML = "";
     }
 }
+
+// movement
 
 addEventListener("keydown" , (event) => {
     if(event.key === "ArrowRight") vxr = playerSpeed;
